@@ -3,7 +3,20 @@ var hookWindow = false;
 $(function() {
     'use strict';
 
+
+    var userId = sessionStorage.getItem('userId');
+    var sid = userId.substring(4);
+    var sectionId = sessionStorage.getItem('sectionId')
+    var friends_unsplit = sessionStorage.getItem('friends')
+
+    console.log(friends)
+    console.log(userId)
+    console.log(sid)
+    console.log(sectionId)
+
+    var friends = friends_unsplit.split(",")
     // parse id in URL
+    /*
     var userId = '';
     var sid = null, sectionId = null;
     var parameters = window.location.search.substring(1);
@@ -12,6 +25,10 @@ $(function() {
         sid = userId.substring(4);
         sectionId = parameters[parameters.length - 1];
     }
+    */
+
+
+
     if (userId.length < 5 || userId.length > 8 || !userId.startsWith('ucla') ||
         isNaN(sid) || isNaN(sectionId)) {
         $('body').empty();
@@ -45,10 +62,10 @@ $(function() {
     var initial_nodes = [];
     var network = null;
 
-    for (var i = 0; i < subject_imgs[sid][sectionId].length; ++i) {
+    for (var i = 0; i < friends.length; ++i) {
         initial_nodes.push({
             id: i,
-            label: subject_imgs[sid][sectionId][i][1],
+            label: friends[i],
             image: IMG_DIR + subject_imgs[sid][sectionId][i][0],
             shape: 'circularImage'
         });
@@ -104,7 +121,7 @@ $(function() {
                     borderWidth: 3,
                 },
                 addEdge: function(data, callback) {
-                    if (data.from != data.to  && 
+                    if (data.from != data.to  &&
                         network.getConnectedNodes(data.from).indexOf(data.to) == -1) {
                         // not the same node and the two nodes are not connected
                         callback(data);
