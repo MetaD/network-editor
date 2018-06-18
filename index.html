@@ -80,10 +80,15 @@
                 $('#instr-text').text(instrText[parseInt(userId.substring(4)) % 2]);
                 $('#info').hide();
                 $('#instr').show();
+                sessionStorage.setItem('userID', userId)
+                sessionStorage.setItem('sectionID', sectionId)
+
             }
             $('#start').click(function() {
-                window.location.href = 'editor.html?id=' + userId + '&section=' + sectionId;
+                window.location.href = 'editor.html';
             });
+
+
         </script>
     </body>
 </html>
